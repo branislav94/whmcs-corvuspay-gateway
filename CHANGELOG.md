@@ -1,10 +1,9 @@
 # Changelog
 
 ## 0.2.0
-- Added webhook callback support for asynchronous payment confirmation
-- Added optional webhook secret configuration for signed callback validation
-- Improved callback transaction logging and duplicate protection
-- Updated documentation for the new callback endpoint
+- Updated CorvusPay order number format to cp_<invoice>_<timestamp>_<random>
+- Kept the existing checkout flow compatible with the new identifier format
+- Improved invoice ID extraction on return validation
 
 ## 0.1.0
 - Initial working WHMCS CorvusPay gateway

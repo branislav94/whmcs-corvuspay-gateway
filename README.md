@@ -14,7 +14,7 @@ Unofficial CorvusPay payment gateway module for WHMCS.
 - Return signature validation
 - WHMCS invoice payment registration
 - Duplicate transaction protection
-- Optional webhook callback processing for asynchronous confirmations
+- Updated order number format: cp_<invoice>_<timestamp>_<random>
 
 ## Installation
 
@@ -31,7 +31,6 @@ Activate **CorvusPay** in WHMCS and configure:
 
 - Store ID
 - Security Key
-- Optional Webhook Secret
 - Test Mode
 - Language
 
@@ -49,17 +48,27 @@ https://YOUR-WHMCS-DOMAIN/modules/gateways/corvuspay/return.php?status=failed
 
 Use HTTP `POST`.
 
-## CorvusPay webhook callback support
+## Order number format
 
-The same return endpoint can also accept a signed CorvusPay callback payload for asynchronous confirmation. When a valid callback arrives, the module verifies the signature and applies the invoice payment if it has not already been processed.
+The gateway now sends CorvusPay `order_number` in this format:
+
+```text
+cp_184_1791218847_a8f21c
+```
+
+Meaning:
+- `cp_` = CorvusPay prefix
+- `184` = WHMCS invoice ID
+- `1791218847` = timestamp
+- `a8f21c` = random suffix
 
 ## Security
 
-Do not commit your CorvusPay Security Key or Webhook Secret. Enter them only in the WHMCS gateway configuration.
+Do not commit your CorvusPay Security Key. Enter it only in the WHMCS gateway configuration.
 
 ## Scope
 
-This v0.2.0 release keeps the one-time card payment flow and adds webhook processing for asynchronous confirmations. Tokenized cards, recurring charges, and refund API support remain out of scope for this release.
+This v0.2.0 release keeps the one-time card payment flow and updates the order number format to match the requested CorvusPay-style identifier. Tokenized cards, recurring charges, and refund API support remain out of scope for this release.
 
 ## Disclaimer
 

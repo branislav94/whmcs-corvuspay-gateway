@@ -33,12 +33,6 @@ function corvuspay_config()
             'Size' => '60',
             'Description' => 'CorvusPay secret security key',
         ],
-        'webhookSecret' => [
-            'FriendlyName' => 'Webhook Secret',
-            'Type' => 'password',
-            'Size' => '60',
-            'Description' => 'Optional CorvusPay webhook secret for callback validation',
-        ],
         'testMode' => [
             'FriendlyName' => 'Test Mode',
             'Type' => 'yesno',
