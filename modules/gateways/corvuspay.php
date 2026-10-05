@@ -33,6 +33,12 @@ function corvuspay_config()
             'Size' => '60',
             'Description' => 'CorvusPay secret security key',
         ],
+        'webhookSecret' => [
+            'FriendlyName' => 'Webhook Secret',
+            'Type' => 'password',
+            'Size' => '60',
+            'Description' => 'Optional CorvusPay webhook secret for callback validation',
+        ],
         'testMode' => [
             'FriendlyName' => 'Test Mode',
             'Type' => 'yesno',
@@ -79,13 +85,15 @@ function corvuspay_link($params)
         return '<div class="alert alert-danger">CorvusPay gateway is not configured.</div>';
     }
 
+    $timestamp = time();
+
     try {
         $random = bin2hex(random_bytes(3));
     } catch (\Throwable $e) {
         $random = substr(md5(uniqid('', true)), 0, 6);
     }
 
-    $orderNumber = sprintf('WHMCS-%d-%d-%s', $invoiceId, time(), $random);
+    $orderNumber = sprintf('cp_%d_%d_%s', $invoiceId, $timestamp, $random);
 
     $paymentParams = [
         'version'          => '1.4',
